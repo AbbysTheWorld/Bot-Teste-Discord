@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    cancel-in-progress: true
 
     steps:
       - name: Checkout repository
