@@ -10,7 +10,7 @@ import openai
 import os
 from dotenv import load_dotenv
 
-load_dotenv('/')
+load_dotenv()
 
 chave_api = os.environ.get("API_GPT")
 openai.api_key = chave_api
