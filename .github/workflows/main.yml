@@ -25,5 +25,6 @@ jobs:
       - name: Run bot
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          API_GPT: ${{ secrets.API_GPT }}
         run: |
           python bot.py
