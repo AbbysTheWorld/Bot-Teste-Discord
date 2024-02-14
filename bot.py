@@ -16,8 +16,8 @@ chave_api = os.environ.get("API_GPT")
 openai.api_key = chave_api
 
 options = webdriver.ChromeOptions()
-#options.add_experimental_option("detach", True)
-#options.add_argument('--enable-chrome-browser-cloud-management')
+options.add_experimental_option("detach", True)
+options.add_argument('--enable-chrome-browser-cloud-management')
 options.add_argument('--headless=new')
 
 intents = discord.Intents.default()
