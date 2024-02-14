@@ -137,7 +137,7 @@ async def proibidoPh(ctx):
     thumbImg_list = []
     for btn in btns:
         thumbImg_list.append(btn.text)
-        await ctx.send('button: {}'.format(btn.text))
+        await ctx.send('button: {}'.format(btn.get_attribute('innerText')))
 
     for texto in thumbImg_list:
         if texto != '':
