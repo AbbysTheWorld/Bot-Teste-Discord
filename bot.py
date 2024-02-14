@@ -129,18 +129,15 @@ async def enviarMensagem(ctx):
 
 @bot.command(name='proibidoPh')
 async def proibidoPh(ctx):
-
     driver = webdriver.Chrome(options=options) 
     driver.get('https://pt.pornhub.com/')
     await ctx.send('iniciou')
 
     btns = driver.find_elements(By.TAG_NAME,'button')
     thumbImg_list = []
-    await ctx.send('iniciou 2: {}'.format(btns[0].text))
     for btn in btns:
         thumbImg_list.append(btn.text)
-        if(len(thumbImg_list) >= 30):
-            break
+        await ctx.send('button: {}'.format(btn.text))
 
     for texto in thumbImg_list:
         if texto != '':
