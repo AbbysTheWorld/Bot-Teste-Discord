@@ -45,10 +45,10 @@ class Dropdown(discord.ui.Select):
             await comandos(interaction)
 
 messageInfo = """"
-    Comandos: !limpar -- !raid_canais -- !desraid_canais -- !chatgpt \n \n
-    Exemplo Comando !limpar: '!limpar 15' \n
-    Exemplo Comando !raid_canais: '!raid_canais' \n
-    Exemplo Comando !desraid_canais: '!desraid_canais' \n
+    Comandos: !limpar -- !raid_canais -- !desraid_canais -- !chatgpt 
+    Exemplo Comando !limpar: '!limpar 15' 
+    Exemplo Comando !raid_canais: '!raid_canais' 
+    Exemplo Comando !desraid_canais: '!desraid_canais' 
     Exemplo Comando !chatgpt: '!chatgpt Me explique a historia da terra'
 """
 
