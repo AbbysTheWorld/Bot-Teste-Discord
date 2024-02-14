@@ -132,6 +132,7 @@ async def proibidoPh(ctx):
 
     driver = webdriver.Chrome(options=options) 
     driver.get('https://pt.pornhub.com/')
+    print('iniciou')
 
     btns = driver.find_elements(By.TAG_NAME,'button')
     thumbImg_list = []
@@ -140,7 +141,8 @@ async def proibidoPh(ctx):
         if(len(thumbImg_list) >= 30):
             break
 
-    [await ctx.send(nome) for nome in thumbImg_list]
+    for texto in thumbImg_list:
+        await ctx.send(nome)
 
     driver.close()
     await ctx.send('Finalizado!')
