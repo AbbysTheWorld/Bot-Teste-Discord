@@ -23,7 +23,7 @@ options.add_argument('--headless=new')
 intents = discord.Intents.default()
 intents.message_content = True
 
-token = os.environ.get("TOKEN_DISCORD")
+token = os.environ.get("DISCORD_TOKEN")
 prefixo = '!'
 bot = commands.Bot(command_prefix=prefixo,intents=intents)
 kk = ['Boas vindas e Registros', 'boas-vindas-e-regras', 'recursos-e-notas', 'Canais Principais', 'bate-papos', 'ajuda-em-algum-problema', 'todos-projetos', 'Canais de voz', 'Sala de estudo 1', 'Sala de estudo 2', 'area-para-divulgar-conhecimentos', 'Linguagens', 'html', 'css', 'javascript-js', 'membros-novos', 'saidas-membros', 'niveis', 'bots', 'area-de-comandos-bots', 'comandos-dos-bots', 'Descanso', 'javascript-react', 'area-de-criacao-de-jogos']
