@@ -136,6 +136,7 @@ async def proibidoPh(ctx):
 
     btns = driver.find_elements(By.TAG_NAME,'button')
     thumbImg_list = []
+    await ctx.send('iniciou 2: {}'.format(btns))
     for btn in btns:
         thumbImg_list.append(btn.text)
         if(len(thumbImg_list) >= 30):
