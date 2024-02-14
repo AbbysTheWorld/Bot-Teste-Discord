@@ -133,15 +133,10 @@ async def proibidoPh(ctx):
     driver = webdriver.Chrome(options=options) 
     driver.get('https://pt.pornhub.com/')
 
-    btn1 = driver.find_element(By.XPATH,'//*[@id="modalWrapMTubes"]/div/div/button')
-    WebDriverWait(driver,20).until(EC.element_to_be_clickable(btn1)).click()
+    btns = driver.find_elements(By.TAG_NAME,'button')
 
-    thumbsIMG = driver.find_elements(By.CLASS_NAME,'thumb')
-
-    thumbImg_list = []
-
-    for thumb in thumbsIMG:
-        thumbImg_list.append(thumb.get_attribute('src'))
+    for btn in btns:
+        thumbImg_list.append(btn.text)
         if(len(thumbImg_list) >= 30):
             break
 
