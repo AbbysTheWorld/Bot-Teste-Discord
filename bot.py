@@ -19,7 +19,7 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 options.add_argument('--enable-chrome-browser-cloud-management')
 options.add_argument('--headless=new')
-
+options.binary_location = 'chrome.exe'
 intents = discord.Intents.default()
 intents.message_content = True
 
