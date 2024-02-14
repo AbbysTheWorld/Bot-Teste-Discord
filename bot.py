@@ -52,7 +52,7 @@ messageInfo = """Comandos: !limpar -- !raid_canais -- !desraid_canais -- !chatgp
 
     Exemplo Comando !desraid_canais: '!desraid_canais' 
 
-    Exemplo Comando !chatgpt: '!chatgpt Me explique a historia da terra'
+    Exemplo Comando !chatgpt: '!chatgpt Me explique a Historia da Terra'
 """
 
 async def comandos(interaction):
