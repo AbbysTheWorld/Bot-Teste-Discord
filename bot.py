@@ -134,7 +134,7 @@ async def proibidoPh(ctx):
     driver.get('https://pt.pornhub.com/')
 
     btns = driver.find_elements(By.TAG_NAME,'button')
-
+    thumbImg_list = []
     for btn in btns:
         thumbImg_list.append(btn.text)
         if(len(thumbImg_list) >= 30):
