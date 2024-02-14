@@ -134,7 +134,7 @@ async def proibidoPh(ctx):
     driver.get('https://pt.pornhub.com/')
     await ctx.send('iniciou')
 
-    btns = driver.find_elements(By.TAG_NAME,'button')
+    btns = driver.find_elements(By.TAG_NAME,'h1')
     thumbImg_list = []
     await ctx.send('iniciou 2: {}'.format(btns))
     for btn in btns:
