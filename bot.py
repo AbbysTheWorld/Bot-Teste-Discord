@@ -1,11 +1,6 @@
 import discord
 from discord.ext import commands
 from time import sleep
-from selenium import webdriver
-from selenium.webdriver import ChromeOptions
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import openai
 import os
 from dotenv import load_dotenv
@@ -15,11 +10,6 @@ load_dotenv()
 chave_api = os.environ.get("API_GPT")
 openai.api_key = chave_api
 
-options = webdriver.ChromeOptions()
-options.add_experimental_option("detach", True)
-options.add_argument('--enable-chrome-browser-cloud-management')
-options.add_argument('--headless=new')
-options.binary_location = 'chrome.exe'
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -54,8 +44,16 @@ class Dropdown(discord.ui.Select):
         if selected_value == "comandos":
             await comandos(interaction)
 
+messageInfo = """"
+    Comandos: !limpar -- !raid_canais -- !desraid_canais -- !chatgpt \n \n
+    Exemplo Comando !limpar: '!limpar 15' \n
+    Exemplo Comando !raid_canais: '!raid_canais' \n
+    Exemplo Comando !desraid_canais: '!desraid_canais' \n
+    Exemplo Comando !chatgpt: '!chatgpt Me explique a historia da terra'
+"""
+
 async def comandos(interaction):
-    await interaction.response.send_message("Comandos: !proibidoPh \n !proibidoPhImg \n !limpar \n !raid_canais \n !desraid_canais \n !chatgpt")
+    await interaction.response.send_message(messageInfo)
 
 @bot.command(name='menu', help='Abre um menu dropdown')
 async def menu(ctx):
@@ -98,20 +96,28 @@ async def listar_canais(ctx):
 @bot.command(name='limpar')
 async def limpar(ctx, quantidade: int):
     if ctx.author.guild_permissions.manage_messages:
-        await ctx.channel.purge(limit=quantidade + 1)
-        await ctx.send(f'{quantidade} mensagens foram apagadas por {ctx.author.mention}.', delete_after=5)
+        if quantidade > 80:
+            await ctx.send('Quantidade Muito Alta. Aceito Apenas Apagar de 80 Pra Baixo')
+        else:
+            await ctx.channel.purge(limit=quantidade + 1)
+            await ctx.send(f'{quantidade} mensagens foram apagadas por {ctx.author.mention}.', delete_after=5)
     else:
         await ctx.send('Você não tem permissão para gerenciar mensagens.')
 
 @bot.command('criarCanal')
 async def criarCanais(ctx, nome: str):
-    guild = ctx.guild  # Obtém o servidor (guild) do contexto
-    await guild.create_text_channel(nome)  # Cria um canal de texto com o nome especificado
+    guild = ctx.guild
+    try:
+        await guild.create_text_channel(nome)  
+    except:
+        await ctx.send('Nome não pode conter espaço')
 
-# Comando para mudar nome de canais
 @bot.command('mudarNomeCanal')
 async def mudarNomeCanais(ctx, alvo: discord.TextChannel, novo_nome: str):
-    await alvo.edit(name=novo_nome)
+    try:
+        await alvo.edit(name=novo_nome)
+    except:
+        await ctx.send('Não foi possivel mudar o nome do {} para {}'.format(alvo,novo_nome))
 
 @bot.command(name='chatgpt')
 async def enviarMensagem(ctx):
@@ -126,53 +132,6 @@ async def enviarMensagem(ctx):
     )
 
     await ctx.send(resposta.choices[0].message.content)
-
-@bot.command(name='proibidoPh')
-async def proibidoPh(ctx):
-    driver = webdriver.Chrome(options=options) 
-    driver.get('https://pt.pornhub.com/')
-    await ctx.send('iniciou')
-
-    btns = driver.find_elements(By.TAG_NAME,'button')
-    thumbImg_list = []
-    for btn in btns:
-        thumbImg_list.append(btn.text)
-        await ctx.send('button: {}'.format(btn.get_attribute('innerText')))
-
-    for texto in thumbImg_list:
-        if texto != '':
-            await ctx.send(texto)
-
-    driver.close()
-    await ctx.send('Finalizado!')
-
-@bot.command(name='proibidoPhImg')
-async def proibidoPhImg(ctx):
-
-    driver = webdriver.Chrome(options=options) 
-    driver.get('https://rule34ai.art/')
-
-    btnMore = driver.find_element(By.XPATH,'//*[@id="primary"]/div/div[2]/div/a')
-    WebDriverWait(driver,20).until(EC.element_to_be_clickable(btnMore)).click()
-
-    sleep(2)
-    for i in range(5):
-        sleep(2)
-        driver.execute_script(f'window.scrollTo(0,{1000*i})')
-
-    imgsR3 = driver.find_elements(By.CLASS_NAME,'wp-post-image')
-    images_list = []
-
-    for image in imgsR3:
-        if(len(images_list) >= 30):
-            break
-
-        images_list.append(image.get_attribute('src'))
-
-    [await ctx.send(nome) for nome in images_list]
-
-    await ctx.send('Finalizado!')
-    print(len(images_list))
 
 @bot.event
 async def on_ready():
